@@ -17,3 +17,4 @@ I am referencing the following books:
 ## Requirements
 - `cmake` version `3.10` or greater.
 - `cppcheck`
+- `googletest` included in the repository as a submodule
