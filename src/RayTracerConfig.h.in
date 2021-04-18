@@ -1,0 +1,3 @@
+// the configured options and settings for RayTracer
+#define RayTracer_VERSION_MAJOR @RayTracer_VERSION_MAJOR@
+#define RayTracer_VERSION_MINOR @RayTracer_VERSION_MINOR@
