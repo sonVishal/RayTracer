@@ -33,7 +33,7 @@ public:
         elems[2] = z;
     }
 
-    float operator[](int idx)
+    float operator[](int idx) const
     {
         if (idx < 4)
         {
