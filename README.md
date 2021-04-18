@@ -16,3 +16,4 @@ I am referencing the following books:
 
 ## Requirements
 - `cmake` version `3.10` or greater.
+- `cppcheck`
