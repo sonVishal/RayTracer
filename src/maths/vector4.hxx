@@ -11,6 +11,10 @@ public:
     Vector4();
     ~Vector4() {}
 
+    // Non-default constructor
+    Vector4(float, float, float);
+    Vector4(float[3]);
+
     // Copy constructor
     Vector4(const Vector4 &);
     // Copy assignment operator

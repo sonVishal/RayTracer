@@ -6,7 +6,7 @@ I am referencing the following books:
 - Ray Tracing from the Ground Up by Kevin Suffern.
 - The Ray Tracer Challenge by Jamis Buck.
 
-## Building the code
+## Building the Code and Tests
 ```
 > mkdir build
 > cd build
@@ -14,7 +14,13 @@ I am referencing the following books:
 > cmake --build .
 ```
 
+### Executing the Tests
+```
+> cd build
+> ctest
+```
+
 ## Requirements
 - `cmake` version `3.10` or greater.
-- `cppcheck`
-- `googletest` included in the repository as a submodule
+- `cppcheck` (latest).
+- `googletest` included in the repository as a submodule. Use `--recursive` flag while cloning to download the correct version.

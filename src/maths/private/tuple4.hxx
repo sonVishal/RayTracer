@@ -2,42 +2,50 @@
 #define _TUPLE4_HXX_
 
 #include <stdexcept>
+#include <gtest/gtest_prod.h>
 
 class Tuple4
 {
 private:
-    float elems[4];
+    float m_elems[4];
 
 protected:
     Tuple4();
     void SetPerspectiveTerm(float w)
     {
-        elems[3] = w;
+        m_elems[3] = w;
     }
 
 public:
-    virtual ~Tuple4();
+    virtual ~Tuple4() {}
+
+    float GetPerspectiveTerm() const
+    {
+        return m_elems[3];
+    }
 
     void Set(float val[3])
     {
         for (int i = 0; i < 3; i++)
         {
-            elems[i] = val[i];
+            m_elems[i] = val[i];
         }
     }
 
+    
+
     void Set(float x, float y, float z)
     {
-        elems[0] = x;
-        elems[1] = y;
-        elems[2] = z;
+        m_elems[0] = x;
+        m_elems[1] = y;
+        m_elems[2] = z;
     }
 
     float operator[](int idx) const
     {
         if (idx < 4)
         {
-            return elems[idx];
+            return m_elems[idx];
         }
         else
         {

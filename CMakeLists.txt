@@ -7,7 +7,7 @@ project(RayTracer VERSION 0.1)
 configure_file(src/RayTracerConfig.h.in RayTracerConfig.h)
 
 # specify the C++ standard
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # for cppcheck
@@ -23,3 +23,7 @@ target_link_libraries(RayTracer PUBLIC maths)
 
 # include directories
 target_include_directories(RayTracer PUBLIC "${PROJECT_BINARY_DIR}")
+
+enable_testing()
+include(GoogleTest)
+add_subdirectory(tests)

@@ -15,6 +15,16 @@ Vector4::Vector4(const Vector4 &other)
     this->SetPerspectiveTerm(0.0f);
 }
 
+Vector4::Vector4(float x, float y, float z)
+{
+    this->Set(x, y, z);
+}
+
+Vector4::Vector4(float vals[3])
+{
+    this->Set(vals[0], vals[1], vals[2]);
+}
+
 Vector4 &Vector4::operator=(const Vector4 &other)
 {
     this->Set(other[0], other[1], other[2]);
@@ -89,6 +99,17 @@ Vector4& Vector4::Normalize()
     }
     this->Scale(1.0 / mag);
     return *this;
+}
+
+Vector4 Vector4::Normalize() const
+{
+    float mag = this->Magnitude();
+    if (IsEq(mag, 0.0))
+    {
+        throw std::overflow_error("Division by Zero");
+    }
+    Vector4 result = this->Scale(1.0 / mag);
+    return result;
 }
 
 Point4 Vector4::ToPoint() const
