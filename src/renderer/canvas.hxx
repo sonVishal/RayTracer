@@ -6,11 +6,19 @@
 class Canvas
 {
 private:
-    ColourVector m_pixels;
-    int m_width, m_height;
+    Colour *m_pixels{nullptr};
+    int m_width{0}, m_height{0};
+    Canvas();
+
 public:
-    Canvas(/* args */);
+    Canvas(int w, int h);
     ~Canvas();
+
+    int GetWidth() const;
+    int GetHeight() const;
+    void WritePixelAt(int x, int y, const Colour &colour);
+    void WritePixels(const Colour &colour);
+    Colour GetPixelAt(int x, int y);
 };
 
 #endif

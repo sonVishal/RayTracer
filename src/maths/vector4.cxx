@@ -3,7 +3,11 @@
 #include <tolerance.hxx>
 #include <point4.hxx>
 
-Vector4::Vector4()
+Vector4::Vector4() : Tuple4()
+{
+}
+
+Vector4::Vector4(float x, float y, float z) : Tuple4(x, y, z, 0.0f)
 {
 }
 
@@ -57,7 +61,7 @@ Vector4 &Vector4::Normalize()
     {
         throw std::overflow_error("Division by Zero");
     }
-    (*this) /=  mag;
+    (*this) /= mag;
     return *this;
 }
 
@@ -76,7 +80,7 @@ Vector4 Vector4::Normalize() const
 Point4 Vector4::ToPoint() const
 {
     Point4 toPoint;
-    for(int i = 0; i < 3; ++i)
+    for (int i = 0; i < 3; ++i)
         toPoint[i] = (*this)[i];
     return toPoint;
 }

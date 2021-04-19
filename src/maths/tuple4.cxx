@@ -4,7 +4,15 @@
 // Constructors
 Tuple4::Tuple4()
 {
-    this->m_elems[0] = this->m_elems[1] = this->m_elems[2] = this->m_elems[3] = 0.0f;
+    (*this)[0] = (*this)[1] = (*this)[2] = (*this)[3] = 0.0f;
+}
+
+Tuple4::Tuple4(float x, float y, float z, float w)
+{
+    (*this)[0] = x;
+    (*this)[1] = y;
+    (*this)[2] = z;
+    (*this)[3] = w;
 }
 
 Tuple4::Tuple4(const Tuple4 &other)
@@ -67,7 +75,7 @@ Tuple4 Tuple4::operator-() const
 {
     Tuple4 result(*this);
     for (int i = 0; i < 3; ++i)
-        result[i] -= 1.0f;
+        result[i] *= -1.0f;
     return result;
 }
 
@@ -84,6 +92,11 @@ bool Tuple4::operator==(const Tuple4 &other) const
     }
 
     return isEq;
+}
+
+bool Tuple4::operator!=(const Tuple4 &other) const
+{
+    return !((*this) == other);
 }
 
 Tuple4 Tuple4::operator*(float val) const
@@ -106,13 +119,13 @@ Tuple4 Tuple4::operator/(float val) const
     return result;
 }
 
-Tuple4& Tuple4::operator*=(float val)
+Tuple4 &Tuple4::operator*=(float val)
 {
     (*this) = ((*this) * val);
     return (*this);
 }
 
-Tuple4& Tuple4::operator/=(float val)
+Tuple4 &Tuple4::operator/=(float val)
 {
     (*this) = ((*this) / val);
     return (*this);

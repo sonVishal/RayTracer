@@ -13,6 +13,7 @@ private:
 
 protected:
     Tuple4();
+    Tuple4(float x, float y, float z, float w);
 
 public:
     virtual ~Tuple4() {}
@@ -32,6 +33,7 @@ public:
     Tuple4 operator-(const Tuple4 &other) const;
     Tuple4 operator-() const;
     bool operator==(const Tuple4 &other) const;
+    bool operator!=(const Tuple4 &other) const;
     Tuple4 operator*(float val) const;
     Tuple4 operator/(float val) const;
 

@@ -9,6 +9,7 @@ class Vector4 : public Tuple4
 {
 public:
     Vector4();
+    Vector4(float x, float y, float z);
     ~Vector4() {}
     Vector4(const Tuple4 &other);
 

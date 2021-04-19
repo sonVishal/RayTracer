@@ -1,9 +1,13 @@
 #include <point4.hxx>
 #include <vector4.hxx>
 
-Point4::Point4()
+Point4::Point4() : Tuple4()
 {
     (*this)[3] = 1.0f;
+}
+
+Point4::Point4(float x, float y, float z) : Tuple4(x, y, z, 1.0f)
+{
 }
 
 Point4::Point4(const Tuple4 &other)
