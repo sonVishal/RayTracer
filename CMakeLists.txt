@@ -14,12 +14,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_CPPCHECK "cppcheck")
 
 add_subdirectory(src/maths)
+add_subdirectory(src/renderer)
 
 # add the executable
 add_executable(RayTracer src/main.cxx)
 
 # libraries
-target_link_libraries(RayTracer PUBLIC maths)
+target_link_libraries(RayTracer PUBLIC maths renderer)
 
 # include directories
 target_include_directories(RayTracer PUBLIC "${PROJECT_BINARY_DIR}")

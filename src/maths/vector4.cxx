@@ -5,66 +5,39 @@
 
 Vector4::Vector4()
 {
-    this->Set(0.0f, 0.0f, 0.0f);
-    this->SetPerspectiveTerm(0.0f);
 }
 
-Vector4::Vector4(const Vector4 &other)
+Vector4::Vector4(const Tuple4 &other)
 {
-    this->Set(other[0], other[1], other[2]);
-    this->SetPerspectiveTerm(0.0f);
+    for (int i = 0; i < 3; ++i)
+        (*this)[i] = other[i];
 }
 
-Vector4::Vector4(float x, float y, float z)
+Vector4 &Vector4::operator=(const Tuple4 &other)
 {
-    this->Set(x, y, z);
-}
-
-Vector4::Vector4(float vals[3])
-{
-    this->Set(vals[0], vals[1], vals[2]);
-}
-
-Vector4 &Vector4::operator=(const Vector4 &other)
-{
-    this->Set(other[0], other[1], other[2]);
-    this->SetPerspectiveTerm(0.0f);
-    return *this;
+    for (int i = 0; i < 3; ++i)
+        (*this)[i] = other[i];
+    return (*this);
 }
 
 Vector4 Vector4::operator*(const Vector4 &other) const
 {
     Vector4 result;
-    result.Set(
-        ((*this)[1] * other[2]) - ((*this)[2] * other[1]),
-        ((*this)[3] * other[0]) - ((*this)[0] * other[3]),
-        ((*this)[0] * other[1]) - ((*this)[1] * other[0]));
+    result[0] = ((*this)[1] * other[2]) - ((*this)[2] * other[1]);
+    result[1] = ((*this)[3] * other[0]) - ((*this)[0] * other[3]);
+    result[2] = ((*this)[0] * other[1]) - ((*this)[1] * other[0]);
+    return result;
+}
+
+Vector4 Vector4::operator*(float val) const
+{
+    Vector4 result = Tuple4::operator*(val);
     return result;
 }
 
 float Vector4::operator%(const Vector4 &other) const
 {
     return ((*this)[0] * other[0]) + ((*this)[1] * other[1]) + ((*this)[2] * other[2]);
-}
-
-Vector4 Vector4::operator+(const Vector4 &other) const
-{
-    Vector4 result;
-    result.Set(
-        (*this)[0] + other[0],
-        (*this)[1] + other[1],
-        (*this)[2] + other[2]);
-    return result;
-}
-
-Vector4 Vector4::operator-(const Vector4 &other) const
-{
-    Vector4 result;
-    result.Set(
-        (*this)[0] - other[0],
-        (*this)[1] - other[1],
-        (*this)[2] - other[2]);
-    return result;
 }
 
 float Vector4::MagnitudeSq() const
@@ -77,27 +50,14 @@ float Vector4::Magnitude() const
     return sqrt(this->MagnitudeSq());
 }
 
-Vector4& Vector4::Scale(float scaleFactor)
-{
-    this->Set((*this)[0] * scaleFactor, (*this)[1] * scaleFactor, (*this)[2] * scaleFactor);
-    return *this;
-}
-
-Vector4 Vector4::Scale(float scaleFactor) const
-{
-    Vector4 result;
-    result.Set((*this)[0] * scaleFactor, (*this)[1] * scaleFactor, (*this)[2] * scaleFactor);
-    return result;
-}
-
-Vector4& Vector4::Normalize()
+Vector4 &Vector4::Normalize()
 {
     float mag = this->Magnitude();
     if (IsEq(mag, 0.0))
     {
         throw std::overflow_error("Division by Zero");
     }
-    this->Scale(1.0 / mag);
+    (*this) /=  mag;
     return *this;
 }
 
@@ -108,20 +68,21 @@ Vector4 Vector4::Normalize() const
     {
         throw std::overflow_error("Division by Zero");
     }
-    Vector4 result = this->Scale(1.0 / mag);
+    Vector4 result(*this);
+    result /= mag;
     return result;
 }
 
 Point4 Vector4::ToPoint() const
 {
     Point4 toPoint;
-    toPoint.Set((*this)[0], (*this)[1], (*this)[2]);
+    for(int i = 0; i < 3; ++i)
+        toPoint[i] = (*this)[i];
     return toPoint;
 }
 
 Vector4 Vector4::AffineCombination(float a, float b, const Vector4 &other) const
 {
-    Vector4 result;
-    result = this->Scale(a) + other.Scale(b);
+    Vector4 result = (((*this) * a) + (other * b));
     return result;
 }

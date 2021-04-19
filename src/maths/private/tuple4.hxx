@@ -4,6 +4,8 @@
 #include <stdexcept>
 #include <gtest/gtest_prod.h>
 
+class Tuple4Factory;
+
 class Tuple4
 {
 private:
@@ -11,47 +13,30 @@ private:
 
 protected:
     Tuple4();
-    void SetPerspectiveTerm(float w)
-    {
-        m_elems[3] = w;
-    }
 
 public:
     virtual ~Tuple4() {}
 
-    float GetPerspectiveTerm() const
-    {
-        return m_elems[3];
-    }
+    // Copy constructor
+    Tuple4(const Tuple4 &other);
 
-    void Set(float val[3])
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            m_elems[i] = val[i];
-        }
-    }
+    // Assignment operator
+    Tuple4 &operator=(const Tuple4 &other);
 
-    
+    // Indexing operators
+    float &operator[](int idx);
+    float operator[](int idx) const;
 
-    void Set(float x, float y, float z)
-    {
-        m_elems[0] = x;
-        m_elems[1] = y;
-        m_elems[2] = z;
-    }
+    // Math operators
+    Tuple4 operator+(const Tuple4 &other) const;
+    Tuple4 operator-(const Tuple4 &other) const;
+    Tuple4 operator-() const;
+    bool operator==(const Tuple4 &other) const;
+    Tuple4 operator*(float val) const;
+    Tuple4 operator/(float val) const;
 
-    float operator[](int idx) const
-    {
-        if (idx < 4)
-        {
-            return m_elems[idx];
-        }
-        else
-        {
-            throw std::out_of_range("Received invalid index.");
-        }
-    }
+    Tuple4 &operator*=(float val);
+    Tuple4 &operator/=(float val);
 };
 
 #endif

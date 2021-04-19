@@ -10,39 +10,20 @@ class Vector4 : public Tuple4
 public:
     Vector4();
     ~Vector4() {}
+    Vector4(const Tuple4 &other);
 
-    // Non-default constructor
-    Vector4(float, float, float);
-    Vector4(float[3]);
+    Vector4 &operator=(const Tuple4 &other);
 
-    // Copy constructor
-    Vector4(const Vector4 &);
-    // Copy assignment operator
-    Vector4 &operator=(const Vector4 &);
+    Vector4 operator*(const Vector4 &other) const;
+    Vector4 operator*(float val) const;
+    float operator%(const Vector4 &other) const;
 
-    // Cross product
-    Vector4 operator*(const Vector4 &) const;
-    // Dot product
-    float operator%(const Vector4 &) const;
-    // Vector addition
-    Vector4 operator+(const Vector4 &) const;
-    // Vector subtraction
-    Vector4 operator-(const Vector4 &) const;
-
-    // Scale this vector and return new vector without
-    // altering this vector
-    Vector4 Scale(float) const;
-    // Scale this vector by altering it
-    Vector4& Scale(float);
-    // Normalize this vector and return new vector without
-    // altering this vector
-    Vector4 Normalize() const;
-    // Normalize this vector by altering it
-    Vector4& Normalize();
-    // Get the magnitude of the vector
+    // Methods
     float Magnitude() const;
-    // Get the magnitude square of the vector
     float MagnitudeSq() const;
+    Vector4 &Normalize();
+    Vector4 Normalize() const;
+
     // Convert vector to point
     Point4 ToPoint() const;
     // Affine combination of this vector and another vector V3 = a*V1 + b*V2
