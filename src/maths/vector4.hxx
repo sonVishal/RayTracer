@@ -1,7 +1,7 @@
 #ifndef _VECTOR4_HXX_
 #define _VECTOR4_HXX_
 
-#include <private/tuple4.hxx>
+#include <tuple4.hxx>
 
 class Point4;
 

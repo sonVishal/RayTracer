@@ -41,6 +41,12 @@ Colour &Colour::Clamp()
     return *this;
 }
 
+std::ostream &operator<<(std::ostream &os, const Colour &colour)
+{
+    os << int(255 * colour[0]) << ' ' << int(255 * colour[1]) << ' ' << int(255 * colour[2]);
+    return os;
+}
+
 Colour::~Colour()
 {
 }

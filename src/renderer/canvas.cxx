@@ -6,7 +6,7 @@ Canvas::Canvas()
 
 Canvas::Canvas(int w, int h) : m_width(w), m_height(h)
 {
-    m_pixels = new Colour[w * h];
+    m_pixels = new Colour[w * h]{Colour()};
 }
 
 void Canvas::WritePixelAt(int x, int y, const Colour &colour)

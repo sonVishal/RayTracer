@@ -2,7 +2,7 @@
 #define _TUPLE4_HXX_
 
 #include <stdexcept>
-#include <gtest/gtest_prod.h>
+#include <ostream>
 
 class Tuple4Factory;
 
@@ -16,7 +16,7 @@ protected:
     Tuple4(float x, float y, float z, float w);
 
 public:
-    virtual ~Tuple4() {}
+    virtual ~Tuple4() {};
 
     // Copy constructor
     Tuple4(const Tuple4 &other);
@@ -36,6 +36,7 @@ public:
     bool operator!=(const Tuple4 &other) const;
     Tuple4 operator*(float val) const;
     Tuple4 operator/(float val) const;
+    friend std::ostream& operator<<(std::ostream& os, const Tuple4& tuple);
 
     Tuple4 &operator*=(float val);
     Tuple4 &operator/=(float val);

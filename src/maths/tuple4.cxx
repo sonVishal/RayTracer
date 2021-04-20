@@ -130,3 +130,9 @@ Tuple4 &Tuple4::operator/=(float val)
     (*this) = ((*this) / val);
     return (*this);
 }
+
+std::ostream& operator<<(std::ostream& os, const Tuple4& tuple)
+{
+    os << tuple[0] << ' ' << tuple[1] << ' ' << tuple[2];
+    return os;
+}
