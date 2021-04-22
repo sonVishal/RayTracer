@@ -89,7 +89,7 @@ Point4 Matrix4x4::operator*(const Point4 &point) const
     Point4 result;
     for (int i = 0; i < 4; ++i)
         result[i] = ((*this)[i][0] * point[0]) + ((*this)[i][1] * point[1]) +
-                ((*this)[i][2] * point[2]) + ((*this)[i][3] * point[3]);
+                    ((*this)[i][2] * point[2]) + ((*this)[i][3] * point[3]);
     return result;
 }
 
@@ -116,17 +116,21 @@ static float getDeterminantOf3x3Matrix(const float (&matrix3x3)[3][3])
     float det = 0.0f;
     det += matrix3x3[0][0] * (matrix3x3[1][1] * matrix3x3[2][2] - matrix3x3[2][1] * matrix3x3[1][2]);
     det += matrix3x3[0][1] * (matrix3x3[1][2] * matrix3x3[2][0] - matrix3x3[1][0] * matrix3x3[2][2]);
-    det += matrix3x3[0][2] * (matrix3x3[1][0] * matrix3x3[2][1] - matrix3x3[2][0] * matrix3x3[1][2]);
+    det += matrix3x3[0][2] * (matrix3x3[1][0] * matrix3x3[2][1] - matrix3x3[2][0] * matrix3x3[1][1]);
     return det;
 }
 
 float Matrix4x4::GetMinorOfSubMatrixAt(int x, int y) const
 {
     float minorMat[3][3] = {};
-    for (int i = 0; i < 4 && i != x; ++i)
+    for (int i = 0; i < 4; ++i)
     {
-        for (int j = 0; j < 4 && j != y; ++j)
+        if (i == x)
+            continue;
+        for (int j = 0; j < 4; ++j)
         {
+            if (j == y)
+                continue;
             int r = i, c = j;
             if (r > x)
                 r--;
@@ -142,7 +146,7 @@ float Matrix4x4::GetMinorOfSubMatrixAt(int x, int y) const
 float Matrix4x4::GetCoFactorOfSubMatrixAt(int i, int j) const
 {
     float cofactor = GetMinorOfSubMatrixAt(i, j);
-    if (i + j % 2 == 1)
+    if ((i + j) % 2 == 1)
     {
         cofactor *= -1.0f;
     }
@@ -151,9 +155,9 @@ float Matrix4x4::GetCoFactorOfSubMatrixAt(int i, int j) const
 
 float Matrix4x4::Determinant() const
 {
-    float det  = 0.0f;
+    float det = 0.0f;
     for (int i = 0; i < 4; ++i)
-        det += GetCoFactorOfSubMatrixAt(0, 0) * (*this)[0][0];
+        det += GetCoFactorOfSubMatrixAt(0, i) * (*this)[0][i];
     return det;
 }
 
@@ -170,6 +174,15 @@ Matrix4x4 Matrix4x4::Inverse() const
         throw std::overflow_error("Matrix is not invertible");
     }
     Matrix4x4 inverse;
+
+    double det = this->Determinant();
+    for (int i = 0; i < 4; ++i)
+    {
+        for (int j = 0; j < 4; ++j)
+        {
+            inverse[j][i] = this->GetCoFactorOfSubMatrixAt(i, j) / det;
+        }
+    }
 
     return inverse;
 }

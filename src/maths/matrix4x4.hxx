@@ -8,8 +8,6 @@ class Matrix4x4
 {
 private:
     float m_elems[4][4] = {};
-    float GetMinorOfSubMatrixAt(int i, int j) const;
-    float GetCoFactorOfSubMatrixAt(int i, int j) const;
 
 public:
     Matrix4x4();
@@ -27,6 +25,10 @@ public:
 
     static Matrix4x4 IdentityMatrix();
     Matrix4x4 Transpose() const;
+
+    float GetMinorOfSubMatrixAt(int i, int j) const;
+    float GetCoFactorOfSubMatrixAt(int i, int j) const;
+
     bool IsInvertible() const;
     Matrix4x4 Inverse() const;
 
