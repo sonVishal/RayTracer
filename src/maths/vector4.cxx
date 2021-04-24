@@ -13,13 +13,13 @@ Vector4::Vector4(float x, float y, float z) : Tuple4(x, y, z, 0.0f)
 
 Vector4::Vector4(const Tuple4 &other)
 {
-    for (int i = 0; i < 3; ++i)
+    for (int i = 0; i < 4; ++i)
         (*this)[i] = other[i];
 }
 
 Vector4 &Vector4::operator=(const Tuple4 &other)
 {
-    for (int i = 0; i < 3; ++i)
+    for (int i = 0; i < 4; ++i)
         (*this)[i] = other[i];
     return (*this);
 }

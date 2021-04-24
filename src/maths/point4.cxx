@@ -12,13 +12,13 @@ Point4::Point4(float x, float y, float z) : Tuple4(x, y, z, 1.0f)
 
 Point4::Point4(const Tuple4 &other)
 {
-    for (int i = 0; i < 3; ++i)
+    for (int i = 0; i < 4; ++i)
         (*this)[i] = other[i];
 }
 
 Point4 &Point4::operator=(const Tuple4 &other)
 {
-    for (int i = 0; i < 3; ++i)
+    for (int i = 0; i < 4; ++i)
         (*this)[i] = other[i];
     return (*this);
 }
