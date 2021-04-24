@@ -22,12 +22,13 @@ set(CMAKE_CXX_CPPCHECK "cppcheck")
 add_subdirectory(src/maths)
 add_subdirectory(src/renderer)
 add_subdirectory(src/imageWriters)
+add_subdirectory(src/objects)
 
 # add the executable
 add_executable(RayTracer src/main.cxx)
 
 # libraries
-target_link_libraries(RayTracer PUBLIC renderer imageWriters maths)
+target_link_libraries(RayTracer PUBLIC objects renderer imageWriters maths)
 
 # include directories
 target_include_directories(RayTracer PUBLIC "${PROJECT_BINARY_DIR}")
