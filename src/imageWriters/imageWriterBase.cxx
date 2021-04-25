@@ -12,28 +12,21 @@ ImageWriterBase::ImageWriterBase(Canvas *canvas, const std::string &fileName, co
 {
     m_fileName += m_extension;
     m_file.open(m_fileName.c_str(), std::ofstream::trunc | std::ofstream::out);
-    m_file.close();
 }
 
 void ImageWriterBase::WriteHeader()
 {
-    m_file.open(m_fileName.c_str(), std::ofstream::app);
     m_file << m_header;
-    m_file.close();
 }
 
 void ImageWriterBase::WriteFooter()
 {
-    m_file.open(m_fileName.c_str(), std::ofstream::app);
     m_file << m_footer;
-    m_file.close();
 }
 
 void ImageWriterBase::WriteData(const std::string &data)
 {
-    m_file.open(m_fileName.c_str(), std::ofstream::app);
     m_file << data;
-    m_file.close();
 }
 
 void ImageWriterBase::SetHeader(const std::string &header)
