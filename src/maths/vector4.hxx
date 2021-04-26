@@ -29,6 +29,9 @@ public:
     Point4 ToPoint() const;
     // Affine combination of this vector and another vector V3 = a*V1 + b*V2
     Vector4 AffineCombination(float, float, const Vector4 &) const;
+
+    // Reflect across normal
+    Vector4 Reflect(const Vector4& normal) const;
 };
 
 #endif

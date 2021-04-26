@@ -90,3 +90,9 @@ Vector4 Vector4::AffineCombination(float a, float b, const Vector4 &other) const
     Vector4 result = (((*this) * a) + (other * b));
     return result;
 }
+
+Vector4 Vector4::Reflect(const Vector4& normal) const
+{
+    Vector4 reflectedVec = (*this) - (normal * 2.0f * ((*this) % normal));
+    return reflectedVec;
+}

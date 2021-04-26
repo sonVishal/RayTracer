@@ -2,6 +2,7 @@
 #include <vector4.hxx>
 #include <tolerance.hxx>
 #include <point4.hxx>
+#include <constants.hxx>
 #include <cmath>
 
 TEST(Vector, VectorCreate)
@@ -127,4 +128,18 @@ TEST(Vector, VectorAffineCombination)
     Vector4 v2(2.0f, 3.0f, 4.0f);
     Vector4 v3 = v1.AffineCombination(0.5f, 0.2f, v2);
     EXPECT_TRUE(v3 == Vector4(0.9f, 1.6f, 2.3f));
+}
+
+TEST(Vector, ReflectXZPlane)
+{
+    Vector4 v(1.0f, -1.0f, 0.0f);
+    Vector4 n(0.0f, 1.0f, 0.0f);
+    EXPECT_TRUE(v.Reflect(n) == Vector4(1.0f, 1.0f, 0.0f));
+}
+
+TEST(Vector, ReflectSlantPlane)
+{
+    Vector4 v(0.0f, -1.0f, 0.0f);
+    Vector4 n(sqrt_2_inv, sqrt_2_inv, 0.0f);
+    EXPECT_TRUE(v.Reflect(n) == Vector4(1.0f, 0.0f, 0.0f));
 }
