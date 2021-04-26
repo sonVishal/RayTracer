@@ -168,3 +168,21 @@ TEST(Sphere, TransformedNormal)
     s.SetTransformation((TransformFactory::Scale(1.0f, 0.5f, 1.0f) * TransformFactory::RotationZ(pi * 0.2f)));
     EXPECT_TRUE(s.Normal(Point4(0.0f, sqrt_2_inv, -sqrt_2_inv)) == Vector4(0.0f, 0.97014f, -0.24254f));
 }
+
+TEST(Sphere, DefaultMaterial)
+{
+    Sphere s;
+    Material m = s.GetMaterial();
+    EXPECT_TRUE(m == Material());
+}
+
+TEST(Sphere, NonDefaultMaterial)
+{
+    Sphere s;
+    Material m;
+    m.SetAmbient(1.0f);
+
+    s.SetMaterial(m);
+
+    EXPECT_TRUE(s.GetMaterial() == m);
+}

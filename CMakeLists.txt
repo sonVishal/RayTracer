@@ -23,6 +23,7 @@ add_subdirectory(src/maths)
 add_subdirectory(src/renderer)
 add_subdirectory(src/imageWriters)
 add_subdirectory(src/objects)
+add_subdirectory(src/materials)
 
 # add the executable
 add_executable(RayTracer src/main.cxx)
