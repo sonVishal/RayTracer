@@ -17,3 +17,16 @@ void Sphere::Intersect(const Ray &ray, std::vector<float> &rayParams) const
     rayParams.push_back((-b - sqrt(discriminant)) / (2.0f * a));
     rayParams.push_back((-b + sqrt(discriminant)) / (2.0f * a));
 }
+
+Vector4 Sphere::Normal(const Point4& point) const
+{
+    Vector4 normal;
+    auto invTransf = m_transformation.Inverse();
+    Point4 objectPoint = (invTransf * point);
+    normal = (objectPoint - m_origin);
+
+    normal = (invTransf.Transpose() * normal);
+    normal.Normalize();
+
+    return normal;
+}

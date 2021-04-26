@@ -19,6 +19,7 @@ public:
     Object() { m_transformation = Matrix4x4::IdentityMatrix(); }
     ~Object() {}
     virtual void Intersect(const Ray &ray, std::vector<float> &rayParams) const = 0;
+    virtual Vector4 Normal(const Point4& point) const = 0;
     Point4 GetOrigin() const { return m_origin; }
     Matrix4x4 GetTransformation() const { return m_transformation; }
     void SetTransformation(const Matrix4x4 &transf) { m_transformation = transf; }
