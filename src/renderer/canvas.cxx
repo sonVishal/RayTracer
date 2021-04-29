@@ -11,7 +11,9 @@ Canvas::Canvas(int w, int h) : m_width(w), m_height(h)
 
 void Canvas::WritePixelAt(int x, int y, const Colour &colour)
 {
-    m_pixels[x + y * m_width] = colour;
+    Colour clampedColour(colour);
+    clampedColour.Clamp();
+    m_pixels[x + y * m_width] = clampedColour;
 }
 
 Colour Canvas::GetPixelAt(int x, int y)

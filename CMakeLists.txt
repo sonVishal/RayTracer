@@ -24,12 +24,13 @@ add_subdirectory(src/renderer)
 add_subdirectory(src/imageWriters)
 add_subdirectory(src/objects)
 add_subdirectory(src/materials)
+add_subdirectory(src/lights)
 
 # add the executable
 add_executable(RayTracer src/main.cxx)
 
 # libraries
-target_link_libraries(RayTracer PUBLIC objects renderer imageWriters maths)
+target_link_libraries(RayTracer PUBLIC objects renderer imageWriters maths materials lights)
 
 # include directories
 target_include_directories(RayTracer PUBLIC "${PROJECT_BINARY_DIR}")

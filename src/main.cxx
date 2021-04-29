@@ -5,6 +5,9 @@
 #include <canvas.hxx>
 #include <ppmWriter.hxx>
 #include <colour.hxx>
+#include <material.hxx>
+#include <PointLight.hxx>
+#include <shader.hxx>
 
 using namespace std;
 
@@ -22,28 +25,32 @@ int main(int argc, char const *argv[])
     float wallSize_2 = wallSize * 0.5f;
 
     Sphere s;
+    Material m;
+    m.SetColour(Colour(1.0f, 0.2f, 1.0f));
+    s.SetMaterial(m);
+    PointLight l(Point4(-10.0, 10.0, -10.0), Colour(1.0f, 1.0f, 1.0f));
+
     std::vector<Object *> objects{&s};
     Intersections ints;
 
     for (int y = 0; y < numPixels; y++)
     {
-        float worldY = wallSize_2 - pixelSize * y;
+        float worldY = -wallSize_2 + pixelSize * y;
         for (int x = 0; x < numPixels; x++)
         {
             float worldX = -wallSize_2 + pixelSize * x;
             Vector4 rayDir = Point4(worldX, worldY, wallZ) - rayOrigin;
             rayDir.Normalize();
             Ray r(rayOrigin, rayDir);
-
+            Vector4 eyeVec = (-rayDir);
             r.GetIntersections(objects, ints);
+            int idx = r.GetHit(ints);
+            if (idx >= 0)
+            {
+                Point4 hitPoint = rayOrigin + (rayDir * ints[0].param);
+                Colour hitColour = Shader::Lighting(m, &l, hitPoint, eyeVec, s.Normal(hitPoint));
 
-            if (r.GetHit(ints) >= 0)
-            {
-                canvas.WritePixelAt(x, y, Colour(1.0f, 0.0f, 0.0f));
-            }
-            else
-            {
-                canvas.WritePixelAt(x, y, Colour(1.0f, 1.0f, 1.0f));
+                canvas.WritePixelAt(x, y, hitColour);
             }
         }
     }

@@ -17,6 +17,8 @@ public:
 
     Colour operator*(const Colour &other) const;
 
+    Colour operator*(float val) const;
+
     friend std::ostream& operator<<(std::ostream& os, const Colour& colour);
 
     Colour &Clamp();
