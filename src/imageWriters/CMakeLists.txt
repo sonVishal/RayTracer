@@ -1,4 +1,5 @@
-add_library(imageWriters imageWriterBase.cxx ppmWriter.cxx)
+file(GLOB IMAGE_WRITERS_SOURCE_FILES *.cxx)
+add_library(imageWriters ${IMAGE_WRITERS_SOURCE_FILES})
 
 target_include_directories(imageWriters PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/private")
 target_include_directories(imageWriters PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
