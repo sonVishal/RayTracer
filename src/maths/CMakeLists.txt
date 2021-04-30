@@ -1,3 +1,4 @@
-add_library(maths tuple4.cxx vector4.cxx point4.cxx colour.cxx matrix4x4.cxx transformFactory.cxx)
+file(GLOB MATHS_SOURCE_FILES *.cxx)
+add_library(maths ${MATHS_SOURCE_FILES})
 
 target_include_directories(maths PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
