@@ -6,7 +6,7 @@
 #include <ppmWriter.hxx>
 #include <colour.hxx>
 #include <material.hxx>
-#include <PointLight.hxx>
+#include <pointLight.hxx>
 #include <shader.hxx>
 
 using namespace std;
