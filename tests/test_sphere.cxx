@@ -186,3 +186,44 @@ TEST(Sphere, NonDefaultMaterial)
 
     EXPECT_TRUE(s.GetMaterial() == m);
 }
+
+TEST(Sphere, Precomputation)
+{
+    Ray ray(Point4(0.0f, 0.0f, -5.0f), Vector4(0.0f, 0.0f, 1.0f));
+    Sphere s;
+    Intersection intersection;
+    intersection.object = &s;
+    intersection.param = 4.0f;
+
+    auto precomp = ray.GetPrecomputation(intersection);
+    EXPECT_TRUE(IsEq(precomp.param, intersection.param));
+    EXPECT_EQ(precomp.intersectionPoint, Point4(0.0f, 0.0f, -1.0f));
+    EXPECT_EQ(precomp.eyeVector, Vector4(0.0f, 0.0f, -1.0f));
+    EXPECT_EQ(precomp.normal, Vector4(0.0f, 0.0f, -1.0f));
+    EXPECT_EQ(std::ref(precomp.object), std::ref(intersection.object));
+}
+
+TEST(Sphere, RayOriginIsOutside)
+{
+    Ray ray(Point4(0.0f, 0.0f, -5.0f), Vector4(0.0f, 0.0f, 1.0f));
+    Sphere s;
+    Intersection intersection;
+    intersection.object = &s;
+    intersection.param = 4.0f;
+    auto precomp = ray.GetPrecomputation(intersection);
+
+    EXPECT_FALSE(precomp.inside);
+}
+
+TEST(Sphere, RayOriginIsInside)
+{
+    Ray ray(Point4(0.0f, 0.0f, 0.0f), Vector4(0.0f, 0.0f, 1.0f));
+    Sphere s;
+    Intersection intersection;
+    intersection.object = &s;
+    intersection.param = 1.0f;
+    auto precomp = ray.GetPrecomputation(intersection);
+
+    EXPECT_TRUE(precomp.inside);
+    EXPECT_EQ(precomp.normal, Vector4(0.0f, 0.0f, -1.0f));
+}

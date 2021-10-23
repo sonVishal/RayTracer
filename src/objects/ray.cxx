@@ -35,7 +35,32 @@ void Ray::GetIntersections(const std::vector<Object *> &objects, Intersections &
             intersection.param = p;
             intersections.emplace_back(intersection);
         }
+        // Sort the intersections so that it is easier to deal with later
+        std::sort(intersections.begin(), intersections.end(),
+                  [](const Intersection &i1, const Intersection &i2) { return i1.param < i2.param; });
     }
+}
+
+Precomputation Ray::GetPrecomputation(const Intersection& intersection) const
+{
+    Precomputation preComp = {};
+    preComp.param = intersection.param;
+    preComp.object = intersection.object;
+    preComp.intersectionPoint = this->GetPosition(intersection.param);
+    preComp.eyeVector = (-this->GetDirection());
+    preComp.normal = intersection.object->Normal(preComp.intersectionPoint);
+
+    if ((preComp.normal % preComp.eyeVector) < 0.0f)
+    {
+        preComp.inside = true;
+        preComp.normal = -preComp.normal;
+    }
+    else
+    {
+        preComp.inside = false;
+    }
+
+    return preComp;
 }
 
 bool operator==(const Intersection &i1, const Intersection &i2)

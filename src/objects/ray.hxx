@@ -16,6 +16,16 @@ struct Intersection
     Object *object = nullptr;
 };
 
+struct Precomputation
+{
+    float param = 0.0;
+    Object *object = nullptr;
+    Point4 intersectionPoint = {};
+    Vector4 eyeVector = {};
+    Vector4 normal = {};
+    bool inside = false;
+};
+
 using Intersections = std::vector<Intersection>;
 
 class Ray
@@ -34,6 +44,7 @@ public:
     Point4 GetPosition(float dist) const;
     void GetIntersection(const Object &obj, std::vector<float> &params) const;
     void GetIntersections(const std::vector<Object *> &objects, Intersections &intersections) const;
+    Precomputation GetPrecomputation(const Intersection& intersection) const;
     int GetHit(const Intersections &intersections) const;
     Ray Transform(Matrix4x4 transformation) const;
 };
